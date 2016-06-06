@@ -1,7 +1,7 @@
 {
   "database": {
-    "host"      : "localhost",
-    "user"      : "pocockn",
-    "password"  : "only8deb"
+    "dbHost"      : "localhost",
+    "dbUser"      : "pocockn",
+    "dbPassword"  : "only8deb"
   }
 }
