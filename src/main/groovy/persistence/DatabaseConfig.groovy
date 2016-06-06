@@ -5,8 +5,8 @@ package persistence
 class DatabaseConfig {
 
     String dbHost = "localhost"
-    String db = "surgery"
     String dbUser = "pocockn"
+    String db
     String dbPassword
     String dbDriver = "org.postgresql.Driver"
 

@@ -23,6 +23,7 @@ ratpack {
 
     handlers {
         get("config") {
+            // this shows our object is mapped our configuration settings
             DatabaseConfig config -> render mapper.writeValueAsString(config)
         }
         get {

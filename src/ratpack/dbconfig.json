@@ -1,5 +1,6 @@
 {
   "database": {
+    "db"          : "surgery",
     "dbHost"      : "localhost",
     "dbUser"      : "pocockn",
     "dbPassword"  : "only8deb"
