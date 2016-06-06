@@ -23,4 +23,11 @@ dependencies {
   runtime 'org.slf4j:slf4j-simple:1.7.12'
 
   testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+  testCompile "org.gebish:geb-spock:0.13.1"
+  testCompile "org.seleniumhq.selenium:selenium-firefox-driver:2.52.0"
+  testCompile "org.seleniumhq.selenium:selenium-support:2.52.0"
+
+  compile 'io.ratpack:ratpack-handlebars:1.2.0'
+  compile 'com.fasterxml.jackson:jackson-parent:2.7-1'
+  compile 'postgresql:postgresql:9.1-901-1.jdbc4'
 }
