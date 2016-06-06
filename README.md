@@ -1,4 +1,4 @@
-Procument Project Prototype
+Procurement Project Prototype
 
 An application in development using Ratpack, Groovy, Geb and Spock.
 
