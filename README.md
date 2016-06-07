@@ -12,7 +12,7 @@ _sudo su - postgres_
 
 Create the DB
 
-_psql >> CREATE DATABASE surgery;_
+_psql >> CREATE DATABASE dbName;_
 
 Create user with super privileges
 
@@ -30,7 +30,7 @@ Add super privileges
 
 _ALTER ROLE role_name WITH attribute_options;_
 
-Added a password 
+Add a password 
 
 _\password test_user_
 
