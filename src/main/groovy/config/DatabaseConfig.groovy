@@ -7,7 +7,7 @@ class DatabaseConfig {
     String dbHost = "127.0.0.1"
     String dbUser = "pocockn"
     String db = "surgery"
-    String dbPassword
+    String dbPassword = "only8deb"
     Integer port = 5432
 
     String getJdbcUrl() {

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Player</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1>Add New Hospital</h1>
+    {{#if model.errors}}
+        <h3>There are errors!!</h3>
+        <ul>
+            {{#each model.errors}}
+                <li>{{this.propertyPath}}-{{this.message}}</li>
+            {{/each}}
+        </ul>
+    {{/if}}
+    <br>
+    <form name="addNewPlayer" method="post" action = "/api/hospitals">
+        <fieldset class="form-group">
+            <label for="title">Hospital Name</label>
+            <input type="text" class="form-control" id="name" name="name">
+        </fieldset>
+        <br>
+        <input type="submit" class="btn btn-primary" name="submit"/>
+    </form>
+</div>
+</body>
+</html>

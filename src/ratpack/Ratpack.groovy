@@ -2,31 +2,37 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import config.DatabaseConfig
 import config.HikariConfigModule
 import groovy.sql.Sql
+import handlers.AddHospitalHandler
+import model.Hospital
+import ratpack.exec.Blocking
+import ratpack.form.Form
 import ratpack.groovy.sql.SqlModule
 import ratpack.groovy.template.MarkupTemplateModule
+import ratpack.handlebars.HandlebarsModule
 import ratpack.hikari.HikariModule
-import ratpack.server.Service
-import ratpack.server.StartEvent
+import ratpack.service.Service
+import ratpack.service.StartEvent
+import service.HospitalService
+import service.HospitalServiceImplementation
 
-import javax.sql.DataSource
-
-import java.sql.Connection;
-
-import static ratpack.groovy.Groovy.groovyMarkupTemplate
 import static ratpack.groovy.Groovy.ratpack
+import static ratpack.handlebars.Template.handlebarsTemplate
+import static ratpack.jackson.Jackson.json
 
 ratpack {
     bindings {
         module MarkupTemplateModule
+        module HandlebarsModule
         // Initialize SqlModule to provide
         // Groovy SQL support in our application.
+        bind AddHospitalHandler
         module SqlModule
         module HikariModule
         module HikariConfigModule
+        bind HospitalService, HospitalServiceImplementation
         bindInstance new Service() {
             void onStart(StartEvent e) {
                 Sql sql = e.registry.get(Sql)
-                sql.execute("insert into hospital VALUES ('2','hospitalName')")
             }
         }
 
@@ -48,13 +54,27 @@ ratpack {
 //            // this shows our object is mapped our configuration settings
 //            DatabaseConfig config -> render mapper.writeValueAsString(config)
 //        }
-        get {
-            render groovyMarkupTemplate("index.gtpl", title: "My Ratpack App")
+        get { HospitalService hospitalService ->
+            hospitalService.list().then { hospitalList ->
+                render(json(hospitalList))
+            }
         }
 
-        get("test") {
-            DataSource dataSource = get(DataSource.class)
+        get("test") { Sql sql ->
+            Blocking.get {
+                sql.rows("select * from hospitals").collect {
+                    it
+                }
+            } then { ids ->
+                render(json(ids))
+            }
+        }
 
+        prefix("api") {
+            get("addHospital") {
+                render handlebarsTemplate("add-new-hospital.html")
+            }
+            path "hospitals/:id?", AddHospitalHandler
         }
 
         files { dir "public" }
