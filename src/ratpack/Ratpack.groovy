@@ -1,11 +1,8 @@
-import com.fasterxml.jackson.databind.ObjectMapper
-import config.DatabaseConfig
 import config.HikariConfigModule
+import database.JsonObjectMapper
 import groovy.sql.Sql
 import handlers.AddHospitalHandler
-import model.Hospital
 import ratpack.exec.Blocking
-import ratpack.form.Form
 import ratpack.groovy.sql.SqlModule
 import ratpack.groovy.template.MarkupTemplateModule
 import ratpack.handlebars.HandlebarsModule
@@ -14,6 +11,7 @@ import ratpack.service.Service
 import ratpack.service.StartEvent
 import service.HospitalService
 import service.HospitalServiceImplementation
+import ratpack.jackson.Jackson
 
 import static ratpack.groovy.Groovy.ratpack
 import static ratpack.handlebars.Template.handlebarsTemplate
@@ -38,35 +36,24 @@ ratpack {
 
     }
 
-    /* serverConfig block - specify sources of configuration and map the config into our config model */
-    serverConfig {
-        // specify the source of the configuration
-        json "dbconfig.json"
-        // Map the /database configuration path to our model object
-        // Filled by the config system, the DatabaseConfig class will become usable throughout our application
-        require("/database", DatabaseConfig)
-    }
-
-    ObjectMapper mapper = new ObjectMapper();
-
     handlers {
-//        get("config") {
-//            // this shows our object is mapped our configuration settings
-//            DatabaseConfig config -> render mapper.writeValueAsString(config)
-//        }
         get { HospitalService hospitalService ->
             hospitalService.list().then { hospitalList ->
-                render(json(hospitalList))
+                hospitalList.collect {
+                    JsonObjectMapper.mapJsonToObject(it["hospital_information"].toString())
+                }
+                render handlebarsTemplate("hospitals.html", model: [created: hospitalList])
             }
         }
 
         get("test") { Sql sql ->
             Blocking.get {
-                sql.rows("select * from hospitals").collect {
-                    it
+                sql.rows("select * from hospitals")
+            } then { result ->
+                def newList = result.collect { singleHospital ->
+                    singleHospital.id
                 }
-            } then { ids ->
-                render(json(ids))
+                render(json(newList))
             }
         }
 

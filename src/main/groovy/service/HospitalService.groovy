@@ -14,7 +14,7 @@ interface HospitalService {
      * List all the hospitals in the database
      * @return a promise to a list of {@link Hospital} models
      */
-    Promise<List<Hospital>> list()
+    Promise<List<String>> list()
 
     /**
      * Saves the provided {@link Hospital} moel

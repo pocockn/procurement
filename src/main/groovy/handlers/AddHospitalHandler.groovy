@@ -8,8 +8,6 @@ import service.HospitalService
 
 import static ratpack.handlebars.Template.handlebarsTemplate
 import static ratpack.jackson.Jackson.json
-import static ratpack.jackson.Jackson.json
-import static ratpack.jackson.Jackson.json
 
 /**
  * Created by pocockn on 09/06/16.
@@ -19,12 +17,13 @@ class AddHospitalHandler extends InjectionHandler {
     void handle(Context ctx, HospitalService hospitalService) {
         ctx.byMethod { method ->
             method.post {
-                ctx.parse(Form). then { form ->
-                    def name = form.name
+                ctx.parse(Form).then { form ->
+                    String name = form.name
+                    String employees = form.employees
+                    String address = form.address
                     if (name) {
                         def id = UUID.randomUUID()
-                        def hospital = new Hospital(id: id, name: name)
-                        hospitalService.save(hospital).onError { error ->
+                        hospitalService.save(new Hospital(id: id, name: name, employees: employees, address: address)).onError { error ->
                             ctx.render json([success: false, error: error.message])
                         } then {
                             ctx.render handlebarsTemplate("added-new.html")
