@@ -1,7 +1,9 @@
+import com.fasterxml.jackson.databind.ObjectMapper
 import config.HikariConfigModule
 import database.JsonObjectMapper
 import groovy.sql.Sql
 import handlers.AddHospitalHandler
+import model.Hospital
 import ratpack.exec.Blocking
 import ratpack.groovy.sql.SqlModule
 import ratpack.groovy.template.MarkupTemplateModule
@@ -38,12 +40,8 @@ ratpack {
 
     handlers {
         get { HospitalService hospitalService ->
-            hospitalService.list().then { hospitalList ->
-                hospitalList.collect {
-                    JsonObjectMapper.mapJsonToObject(it["hospital_information"].toString())
-                }
-                render handlebarsTemplate("hospitals.html", model: [created: hospitalList])
-            }
+            // call our list method to grab all our hospital objects
+                render handlebarsTemplate("hospitals.html", model: [created: hospitalListNew])
         }
 
         get("test") { Sql sql ->

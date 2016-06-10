@@ -25,9 +25,14 @@ class HospitalServiceImplementation implements HospitalService {
     }
 
     @Override
-    Promise<List<GroovyRowResult>> list() {
+    Promise<List<Hospital>> list() {
+        ObjectMapper mapper = new ObjectMapper()
         Blocking.get {
-            sql.rows("select * from hospitals")
+            sql.rows("select * from hospitals").collect { GroovyRowResult result ->
+                String instanceJson = result.getAt(1)
+                Hospital instance = mapper.readValue(instanceJson, Hospital)
+                instance
+            }
         }
     }
 
