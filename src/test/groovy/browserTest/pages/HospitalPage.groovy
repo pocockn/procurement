@@ -6,9 +6,9 @@ import geb.Page
  */
 class HospitalPage extends Page {
     // location of the page
-    static url = "api/games"
+    static url = "/"
     // at is used to assert driver is on the correct page, checks title to ensure this
-    static at = { title == "All Games" }
+    static at = { title == "All Hospitals" }
 
     static content = {
         gameListContainer { $(".container ul") }

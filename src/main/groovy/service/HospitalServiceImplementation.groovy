@@ -10,8 +10,6 @@ import ratpack.exec.Blocking
 import ratpack.exec.Operation
 import ratpack.exec.Promise
 
-import static ratpack.jackson.Jackson.json
-
 /**
  * Created by pocockn on 09/06/16.
  */
@@ -25,11 +23,12 @@ class HospitalServiceImplementation implements HospitalService {
     }
 
     @Override
-    Promise<List<Hospital>> list() {
+    Promise<List<Hospital>> fetchAll() {
         ObjectMapper mapper = new ObjectMapper()
         Blocking.get {
             sql.rows("select * from hospitals").collect { GroovyRowResult result ->
                 String instanceJson = result.getAt(1)
+                println instanceJson
                 Hospital instance = mapper.readValue(instanceJson, Hospital)
                 instance
             }

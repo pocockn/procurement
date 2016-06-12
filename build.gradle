@@ -12,6 +12,7 @@ apply plugin: "io.ratpack.ratpack-groovy"
 apply plugin: "com.github.johnrengelman.shadow"
 apply plugin: "idea"
 apply plugin: "eclipse"
+apply plugin: "groovy"
 
 repositories {
     jcenter()
@@ -29,7 +30,6 @@ dependencies {
 
     // http://mvnrepository.com/artifact/com.google.inject/guice
     compile group: 'com.google.inject', name: 'guice', version: '3.0'
-
 
     compile 'io.ratpack:ratpack-handlebars:1.2.0'
     compile 'com.fasterxml.jackson:jackson-parent:2.7-1'

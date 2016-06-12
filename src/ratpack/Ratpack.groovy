@@ -4,10 +4,13 @@ import database.JsonObjectMapper
 import groovy.sql.Sql
 import handlers.AddHospitalHandler
 import model.Hospital
+import model.HospitalSummary
 import ratpack.exec.Blocking
+import ratpack.exec.Promise
 import ratpack.groovy.sql.SqlModule
 import ratpack.groovy.template.MarkupTemplateModule
 import ratpack.handlebars.HandlebarsModule
+import ratpack.handlebars.internal.HandlebarsTemplateRenderer
 import ratpack.hikari.HikariModule
 import ratpack.service.Service
 import ratpack.service.StartEvent
@@ -38,10 +41,12 @@ ratpack {
 
     }
 
+
     handlers {
         get { HospitalService hospitalService ->
-            // call our list method to grab all our hospital objects
-                render handlebarsTemplate("hospitals.html", model: [created: hospitalListNew])
+            hospitalService.fetchAll().then { hospitals ->
+                render handlebarsTemplate("hospitals.html", model: [created: hospitals])
+            }
         }
 
         get("test") { Sql sql ->
