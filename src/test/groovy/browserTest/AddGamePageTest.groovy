@@ -16,7 +16,6 @@ class AddGamePageTest extends GebSpec {
     }
 
    def "Add hospital form"() {
-
        given:
        to AddHospitalPage
 
