@@ -6,7 +6,7 @@ import geb.Page
  */
 class AddHospitalPage extends Page {
     // location of the page
-    static url = "api/addHospital"
+    static url = "/api/addHospital"
     // at is used to assert driver is on the correct page, checks title to ensure this
     static at = { title == "Add New Hospital" }
 

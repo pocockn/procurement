@@ -14,7 +14,7 @@ ext {
 
     ext {
         gebVersion = '0.13.1'
-        seleniumVersion = '2.51.0'
+        seleniumVersion = '2.53.0'
         chromeDriverVersion = '2.19'
         phantomJsVersion = '1.9.7'
     }
@@ -23,7 +23,7 @@ ext {
 apply plugin: "io.ratpack.ratpack-groovy"
 apply plugin: "com.github.johnrengelman.shadow"
 apply plugin: "idea"
-apply plugin: "eclipse"
+apply plugin: "groovy"
 
 repositories {
     jcenter()
@@ -44,7 +44,13 @@ dependencies {
     }
 
     // If using JUnit, need to depend on geb-junit (3 or 4)
-    testCompile "org.gebish:geb-junit4:$gebVersion"
+    testCompile ("org.gebish:geb-junit4:$gebVersion")  {
+        exclude group: "org.codehaus.groovy"
+    }
+
+    // http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.53.0'
+
 
     // Drivers
     testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
@@ -55,7 +61,9 @@ dependencies {
         transitive = false
     }
 
-    testCompile 'io.ratpack:ratpack-remote-test:1.2.0'
+    testCompile ('io.ratpack:ratpack-remote-test:1.2.0') {
+        exclude group: "org.codehaus.groovy"
+    }
 
     // http://mvnrepository.com/artifact/com.google.inject/guice
     compile group: 'com.google.inject', name: 'guice', version: '3.0'
