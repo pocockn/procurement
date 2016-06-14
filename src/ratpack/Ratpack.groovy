@@ -1,22 +1,17 @@
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.annotation.JacksonInject
 import config.HikariConfigModule
-import database.JsonObjectMapper
 import groovy.sql.Sql
 import handlers.AddHospitalHandler
-import model.Hospital
-import model.HospitalSummary
 import ratpack.exec.Blocking
-import ratpack.exec.Promise
 import ratpack.groovy.sql.SqlModule
 import ratpack.groovy.template.MarkupTemplateModule
 import ratpack.handlebars.HandlebarsModule
-import ratpack.handlebars.internal.HandlebarsTemplateRenderer
 import ratpack.hikari.HikariModule
+import ratpack.jackson.Jackson
 import ratpack.service.Service
 import ratpack.service.StartEvent
 import service.HospitalService
 import service.HospitalServiceImplementation
-import ratpack.jackson.Jackson
 
 import static ratpack.groovy.Groovy.ratpack
 import static ratpack.handlebars.Template.handlebarsTemplate
@@ -24,6 +19,7 @@ import static ratpack.jackson.Jackson.json
 
 ratpack {
     bindings {
+
         module MarkupTemplateModule
         module HandlebarsModule
         // Initialize SqlModule to provide
@@ -40,7 +36,6 @@ ratpack {
         }
 
     }
-
 
     handlers {
         get { HospitalService hospitalService ->

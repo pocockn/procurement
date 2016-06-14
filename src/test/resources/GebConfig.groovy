@@ -2,11 +2,29 @@
  * Created by pocockn on 13/06/16.
  */
 
-import org.openqa.selenium.firefox.FirefoxDriver
 
-baseUrl = "http://localhost:5050"
+import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.phantomjs.PhantomJSDriver
 
-driver = { new FirefoxDriver() }
+waiting {
+    timeout = 2
+}
 
-reportsDir = new File("target/geb-reports")
-reportOnTestFailureOnly = true
+environments {
+
+    // run via “./gradlew chromeTest”
+    // See: http://code.google.com/p/selenium/wiki/ChromeDriver
+    chrome {
+            System.setProperty('webdriver.chrome.driver', '/home/pocockn/dev/procurement')
+            driver = {    new ChromeDriver() }
+        }
+
+    phantomJs {
+        driver = { new PhantomJSDriver() }
+    }
+
+}
+
+// To run the tests with all browsers just run “./gradlew test”
+
+baseUrl = "http://gebish.org"

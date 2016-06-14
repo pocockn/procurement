@@ -11,13 +11,12 @@ import spock.lang.Shared
 /**
  * Created by pocockn on 20/04/16.
  */
-class AddGamePageTest extends GebReportingSpec {
+class AddGamePageTest extends GebSpec {
 
-    @AutoCleanup ApplicationUnderTest aut = new GroovyRatpackMainApplicationUnderTest()
+    ApplicationUnderTest aut = new GroovyRatpackMainApplicationUnderTest()
 
     def setup() {
-        URI base = aut.address
-        browser.baseUrl = base.toString()
+        browser.baseUrl = aut.address.toString()
     }
 
    def "Add hospital form"() {

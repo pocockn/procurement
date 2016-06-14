@@ -16,15 +16,16 @@ import ratpack.exec.Promise
 class HospitalServiceImplementation implements HospitalService {
 
     private final Sql sql
+    private final ObjectMapper mapper
 
     @Inject
-    HospitalServiceImplementation(Sql sql) {
+    HospitalServiceImplementation(Sql sql, ObjectMapper mapper) {
         this.sql = sql
+        this.mapper = mapper
     }
 
     @Override
     Promise<List<Hospital>> fetchAll() {
-        ObjectMapper mapper = new ObjectMapper()
         Blocking.get {
             sql.rows("select * from hospitals").collect { GroovyRowResult result ->
                 String instanceJson = result.getAt(1)
@@ -40,5 +41,17 @@ class HospitalServiceImplementation implements HospitalService {
         Blocking.get {
             sql.execute "INSERT INTO hospitals (id, hospital_information) VALUES (${hospital.id}, ${JsonObjectMapper.mapObjectToJson(hospital)})"
         }.operation()
+    }
+
+    @Override
+    Promise<List<Hospital>> fetchByName(String name) {
+        Blocking.get {
+            sql.rows("SELECT * FROM hospitals WHERE name = ${name}").collect { GroovyRowResult result ->
+                String instanceJson = result.getAt(1)
+                println instanceJson
+                Hospital instance = mapper.readValue(instanceJson, Hospital)
+                instance
+            }
+        }
     }
 }
