@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
  */
 class Hospital {
 
-    UUID id
+    String id
     String name
     String employees
     String address

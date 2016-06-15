@@ -33,8 +33,8 @@ ratpack {
 
     }
 
-    handlers {
-        get { HospitalService hospitalService ->
+    handlers { HospitalService hospitalService ->
+        get {
             hospitalService.fetchAll().then { hospitals ->
                 render handlebarsTemplate("hospitals.html", model: [created: hospitals])
             }
@@ -49,6 +49,9 @@ ratpack {
 
         post("delete/:id") {
             def id = pathTokens["id"]
+            hospitalService.delete(id).then {
+                redirect "/?msg=Hospital+$id+delete"
+            }
         }
 
         files { dir "public" }

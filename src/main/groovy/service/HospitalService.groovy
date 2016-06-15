@@ -29,4 +29,6 @@ interface HospitalService {
      */
     Operation save(Hospital hospital)
 
+    Operation delete(String id)
+
 }

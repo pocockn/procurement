@@ -17,6 +17,9 @@
                             <li class="video-title">{{id}}</li>
                             <li class="video-genre">{{name}}</li>
                             <li class="video-genre">{{address}}</li>
+                            <form action="/delete/{{id}}" method="post">
+                                <input type="submit" name="delete" value="delete" />
+                            </form>
                         </ul>
                     </div>
                 </div>

@@ -57,4 +57,11 @@ class HospitalServiceImplementation implements HospitalService {
             }
         }
     }
+
+    @Override
+    Operation delete(String id) {
+        Blocking.get {
+            sql.execute "DELETE FROM hospitals WHERE id = ${id}"
+        }.operation()
+    }
 }
