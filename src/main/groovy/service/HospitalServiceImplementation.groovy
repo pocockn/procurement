@@ -18,6 +18,9 @@ class HospitalServiceImplementation implements HospitalService {
     private final Sql sql
     private final ObjectMapper mapper
 
+    /*
+     * Using Google Guice to inject our SQL and object mapper from our ratpack registry
+     */
     @Inject
     HospitalServiceImplementation(Sql sql, ObjectMapper mapper) {
         this.sql = sql
