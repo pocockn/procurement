@@ -97,4 +97,11 @@ task npmCacheConfig(type : NpmTask) {
     args = ['config', 'set', 'cache', npmCacheDir]
 }
 
+task npmPackages(type: NpmTask, dependsOn: npmCacheConfig) {
+    description = "Install Node.js packages"
+    args = [ 'install' ]
+    inputs.files file('package.json')
+    outputs.files file('node_modules')
+}
+
 
