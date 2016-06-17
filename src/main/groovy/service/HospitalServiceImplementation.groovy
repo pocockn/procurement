@@ -25,7 +25,7 @@ class HospitalServiceImplementation implements HospitalService {
                 String instanceJson = result.getAt(1)
                 println instanceJson
                 Hospital instance = mapper.readValue(instanceJson, Hospital)
-                instance
+                return instance
             }
         }
     }
@@ -38,13 +38,14 @@ class HospitalServiceImplementation implements HospitalService {
     }
 
     @Override
-    Promise<List<Hospital>> fetchByName(String name) {
+    Promise<List<Hospital>> fetchByID(String id) {
         Blocking.get {
-            sql.rows("SELECT * FROM hospitals WHERE name = ${name}").collect { GroovyRowResult result ->
+            sql.rows("SELECT * FROM hospitals WHERE id = ${id}").collect { GroovyRowResult result ->
+                // getAt(1) will get us the second column with all the content in
                 String instanceJson = result.getAt(1)
                 println instanceJson
                 Hospital instance = mapper.readValue(instanceJson, Hospital)
-                instance
+                return instance
             }
         }
     }

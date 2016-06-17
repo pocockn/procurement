@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Hospital</title>
+</head>
+<body>
+<h1>View Hospital</h1>
+{{#each model.singleHospital}}
+    <li class="video-title">{{id}}</li>
+    <li class="video-genre">{{name}}</li>
+    <li class="video-genre">{{address}}</li>
+{{/each}}
+<a href="/">Back</a>
+</body>
+</html>

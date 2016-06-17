@@ -1,7 +1,6 @@
 package service
 
 import model.Hospital
-import model.HospitalSummary
 import ratpack.exec.Operation
 import ratpack.exec.Promise
 
@@ -11,7 +10,7 @@ import ratpack.exec.Promise
 
 interface HospitalService {
 
-    Promise<List<Hospital>> fetchByName(String name)
+    Promise<List<Hospital>> fetchByID(String id)
 
     Promise<List<Hospital>> fetchAll()
 

@@ -47,6 +47,13 @@ ratpack {
             path "hospitals", AddHospitalHandler
         }
 
+        get('hospital/:id') {
+            def id = pathTokens["id"]
+            hospitalService.fetchByID(id).then { hospitalSingle ->
+                render handlebarsTemplate("single-hospital.html", model: [singleHospital: hospitalSingle])
+            }
+        }
+
         post("delete/:id") {
             def id = pathTokens["id"]
             hospitalService.delete(id).then {
