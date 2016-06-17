@@ -115,25 +115,20 @@ task bowerInstall(type: NodeTask) {
     dependsOn npmPackages
 }
 
-task bowerSyncJavascript(type: Sync) {
+task bowerSync(type: Sync) {
     from 'bower_components'
-    into "src/ratpack/public/scripts"
+    into "src/ratpack/public/assets/"
     exclude '**/*.min.js'
     dependsOn bowerInstall
 }
 
-task bowerSyncStylesheets(type: Sync) {
-    from 'bower_components'
-    into "src/ratpack/public/styles"
-    dependsOn bowerInstall
-}
-
 task bowerPackages() {
-    dependsOn bowerSyncJavascript, bowerSyncStylesheets
+    dependsOn bowerSync
 }
 
 processResources.dependsOn bowerPackages
 
+clean.delete << file('src/ratpack/public/assets/')
 clean.delete << file('node_modules')
 clean.delete << file('bower_components')
 
