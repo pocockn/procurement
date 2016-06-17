@@ -23,7 +23,6 @@ class HospitalServiceImplementation implements HospitalService {
         Blocking.get {
             sql.rows("select * from hospitals").collect { GroovyRowResult result ->
                 String instanceJson = result.getAt(1)
-                println instanceJson
                 Hospital instance = mapper.readValue(instanceJson, Hospital)
                 return instance
             }
@@ -43,7 +42,6 @@ class HospitalServiceImplementation implements HospitalService {
             sql.rows("SELECT * FROM hospitals WHERE id = ${id}").collect { GroovyRowResult result ->
                 // getAt(1) will get us the second column with all the content in
                 String instanceJson = result.getAt(1)
-                println instanceJson
                 Hospital instance = mapper.readValue(instanceJson, Hospital)
                 return instance
             }

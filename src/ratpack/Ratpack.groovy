@@ -1,5 +1,4 @@
 import config.HikariConfigModule
-import groovy.sql.Sql
 import handlers.AddHospitalHandler
 import ratpack.groovy.sql.SqlModule
 import ratpack.groovy.template.MarkupTemplateModule
@@ -9,6 +8,8 @@ import ratpack.service.Service
 import ratpack.service.StartEvent
 import service.HospitalService
 import service.HospitalServiceImplementation
+
+import java.util.logging.Logger
 
 import static ratpack.groovy.Groovy.ratpack
 import static ratpack.handlebars.Template.handlebarsTemplate
@@ -26,8 +27,9 @@ ratpack {
         module HikariConfigModule
         bind HospitalService, HospitalServiceImplementation
         bindInstance new Service() {
-            void onStart(StartEvent e) {
-                Sql sql = e.registry.get(Sql)
+            void onStart(StartEvent e) throws Exception{
+                Logger logger = Logger.getLogger("")
+                logger.info("Initialising Procurement Project")
             }
         }
 
