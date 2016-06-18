@@ -27,7 +27,7 @@ ratpack {
         module HikariConfigModule
         bind HospitalService, HospitalServiceImplementation
         bindInstance new Service() {
-            void onStart(StartEvent e) throws Exception{
+            void onStart(StartEvent e) throws Exception {
                 Logger logger = Logger.getLogger("")
                 logger.info("Initialising Procurement Project")
             }
