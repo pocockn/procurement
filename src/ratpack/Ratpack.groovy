@@ -63,6 +63,13 @@ ratpack {
             }
         }
 
+        path("update/:id") {
+            def id = pathTokens["id"]
+
+            hospitalService.fetchByID(id)
+        }
+
         files { dir "public" }
     }
+
 }
