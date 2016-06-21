@@ -2,7 +2,7 @@ package browserTest
 
 import browserTest.pages.AddHospitalPage
 import browserTest.pages.HospitalsPage
-import database.DBCleanUp
+//import database.DBCleanUp
 import geb.spock.GebSpec
 import ratpack.groovy.test.GroovyRatpackMainApplicationUnderTest
 import ratpack.test.ApplicationUnderTest
@@ -15,8 +15,8 @@ class AddHospitalPageTest extends GebSpec {
 
     ApplicationUnderTest aut = new GroovyRatpackMainApplicationUnderTest()
 
-    @Shared
-    DBCleanUp dbCleanUp = new DBCleanUp()
+//    @Shared
+//    DBCleanUp dbCleanUp = new DBCleanUp()
 
     def setup() {
         browser.baseUrl = aut.address.toString()
