@@ -1,19 +1,13 @@
 package services
 
-import browserTest.pages.HospitalPage
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.inject.Inject
-import geb.spock.GebReportingSpec
+import browserTest.pages.HospitalsPage
 import geb.spock.GebSpec
 import groovy.sql.Sql
 import model.Hospital
-import org.spockframework.runtime.model.ISkippable
 import ratpack.groovy.test.GroovyRatpackMainApplicationUnderTest
 import ratpack.groovy.test.embed.GroovyEmbeddedApp
 import ratpack.test.embed.EmbeddedApp
-import ratpack.test.http.TestHttpClient
 import ratpack.test.remote.RemoteControl
-import spock.lang.AutoCleanup
 import spock.lang.Ignore
 import spock.lang.Shared
 import static ratpack.jackson.Jackson.json;
@@ -52,7 +46,7 @@ class HospitalDeleteSpec extends GebSpec {
 
     def "no books are listed"() {
         when:
-        to HospitalPage
+        to HospitalsPage
 
         then:
         println "hello"

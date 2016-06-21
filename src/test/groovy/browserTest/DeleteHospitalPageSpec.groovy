@@ -1,17 +1,16 @@
 package browserTest
 
 import browserTest.pages.AddHospitalPage
-import geb.spock.GebReportingSpec
+import browserTest.pages.HospitalPage
+import browserTest.pages.HospitalsPage
 import geb.spock.GebSpec
 import ratpack.groovy.test.GroovyRatpackMainApplicationUnderTest
 import ratpack.test.ApplicationUnderTest
-import spock.lang.AutoCleanup
-import spock.lang.Shared
 
 /**
  * Created by pocockn on 20/04/16.
  */
-class AddGamePageTest extends GebSpec {
+class DeleteHospitalPageSpec extends GebSpec {
 
     ApplicationUnderTest aut = new GroovyRatpackMainApplicationUnderTest()
 
@@ -19,11 +18,11 @@ class AddGamePageTest extends GebSpec {
         browser.baseUrl = aut.address.toString()
     }
 
-   def "Add hospital form"() {
+    def "Add a hospital"() {
        when:
        to AddHospitalPage
 
-       and: "I add a new hospital and submit data"
+        then: "I add a new hospital and submit data"
        addHospitalForm.with {
            name = "UCL"
            employees = "2500"
@@ -31,9 +30,20 @@ class AddGamePageTest extends GebSpec {
        }
        submitButton.click()
 
-       then: "check submitted form data is correct"
-           $(".container h1").text().contains("Thank you for adding that Hospital")
+        to HospitalsPage
+
+        then: "click on individual hospital"
+        singleHospitalLink.click()
+
+        and: "go to our list of hospitals"
+        at HospitalPage
+        deleteButton.click()
+
+        expect:
+        at HospitalsPage
+        !singleHospitalLink.present()
    }
+
 }
 
 

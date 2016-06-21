@@ -5,32 +5,49 @@ import model.Hospital
 import org.shamdata.Sham
 import ratpack.AsyncSpec
 import ratpack.PersistenceSpec
+import ratpack.test.exec.ExecHarness
 import service.HospitalServiceImplementation
+import spock.lang.AutoCleanup
 import spock.lang.Ignore
 import spock.lang.Shared
+import spock.lang.Specification
+
+import java.util.logging.Logger
 
 /**
  * Created by pocockn on 16/06/16.
  */
-@Ignore
-class HospitalServiceImplementationSpec extends PersistenceSpec implements AsyncSpec {
 
-    String id = UUID.randomUUID().toString()
+class HospitalServiceImplementationSpec extends Specification {
 
-    @Inject
-    HospitalServiceImplementation store
+    private static final def hospitals = [
+            new Hospital(id: '79dfed0c-13f1-4e9c-b472-0fa857355bef', name: "Test Hospital", employees: "2500", address: "Test Address"),
+            new Hospital(id: '79dfed0c-13f1-4e9c-b472-0fa857355bed', name: "Test Hospital", employees: "2500", address: "Test Address"),
+            new Hospital(id: '79dfed0c-13f1-4e9c-b472-0fa857355bee', name: "Test Hospital", employees: "2500", address: "Test Address")
+    ]
 
-    def "store and fetch hospital"() {
+    @AutoCleanup
+    ExecHarness execHarness = ExecHarness.harness()
+
+    HospitalServiceImplementation store = new HospitalServiceImplementation()
+
+    void "Should save and return a list of hospitals"() {
         given:
-        Hospital hospital = new Hospital(id: id, name: "Test Hospital", employees: "2500", address: "Test Address")
+        execHarness.yield {
+            hospitals.each {
+                hospital -> store.save(hospital)
+            }
+        }
 
-        when:
-        yield { store.save(hospital) }
-        Hospital draft = yieldResult { store.fetchAll() }
+        expect:
+        def hello = []
+        execHarness.yieldSingle {
+            store.fetchAll().then {
+                hello.add(it)
+            }
+        }
+        println hello
 
-        then:
-        draft.id == hospital.id
-        draft.name == hospital.name
-        draft.employees == hospital.employees
     }
 }
+
