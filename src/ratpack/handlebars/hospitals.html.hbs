@@ -1,43 +1,53 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>All Hospitals</title>
-    <!-- Custom CSS -->
-    <link href="/assets/metisMenu/dist/metisMenu.css" rel="stylesheet">
-    <!-- Bootstrap Core CSS -->
-    <link href="/assets/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    <!-- Timeline CSS -->
-    <link href="/styles/timeline.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="/styles/sb-admin-2.css" rel="stylesheet">
-    <!-- Morris Charts CSS -->
-    <link href="/assets//morrisjs/morris.css" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
-</head>
 {{> header }}
-<body>
-<div class="container">
-    <h1>All Hospitals</h1>
-    <div class="row games-list">
-        {{#each model.created}}
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <ul class="video-group">
-                            <li class="video-title">{{id}}</li>
-                            <li class="video-genre">{{name}}</li>
-                            <li class="video-genre">{{address}}</li>
-                            <form action="/delete/{{id}}" method="post">
-                                <input type="submit" name="delete" value="delete" />
-                            </form>
-                            <a href="/hospital/{{id}}">View Hospital</a>
-                        </ul>
+<title>All Hospitals</title>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">All Hospitals</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Employees</th>
+                                <th>Address</th>
+                                <th>ID</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each model.created}}
+                                <tr class="odd gradeX">
+                                    <td><a href="/hospital/{{id}}" id="{{name}}Single">{{name}}</a></td>
+                                    <td>{{employees}}</td>
+                                    <td>{{address}}</td>
+                                    <td>{{id}}</td>
+                                    <td>
+                                        <form action="/delete/{{id}}" method="post">
+                                            <input type="submit" name="delete" value="delete"/>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div><!-- END COL -->
-        {{/each}}
-    </div><!-- END ROW -->
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.panel-body -->
 </div>
 {{> footer }}

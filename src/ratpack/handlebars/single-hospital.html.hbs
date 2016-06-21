@@ -1,16 +1,56 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>View Hospital</title>
-</head>
-<body>
-<h1>View Hospital</h1>
-{{#each model.singleHospital}}
-    <li class="video-title">{{id}}</li>
-    <li class="video-genre">{{name}}</li>
-    <li class="video-genre">{{address}}</li>
-{{/each}}
-<a href="/">Back</a>
-</body>
-</html>
+{{> header }}
+<title>Hospital - {{model.singleHospital.name}}</title>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{model.singleHospital.name}}</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Employees</th>
+                                <th>Address</th>
+                                <th>ID</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each model.singleHospital}}
+                                <tr class="odd gradeX">
+                                    <td><a href="/hospital/{{id}}" id="{{name}}Single">{{name}}</a></td>
+                                    <td>{{employees}}</td>
+                                    <td>{{address}}</td>
+                                    <td>{{id}}</td>
+                                    <td>
+                                        <form action="/delete/{{id}}" method="post">
+                                            <input type="submit" name="delete" value="delete"/>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                        <input type="button" name="product" class="btn-default" value="Add Product"/>
+                        <br/>
+                        <a href="/">Back</a>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.panel-body -->
+</div>
+{{> footer }}
