@@ -1,18 +1,10 @@
 package services
 
-import com.google.inject.Inject
 import model.Hospital
-import org.shamdata.Sham
-import ratpack.AsyncSpec
-import ratpack.PersistenceSpec
 import ratpack.test.exec.ExecHarness
-import service.HospitalServiceImplementation
+import service.StorageServiceHospitalImplementation
 import spock.lang.AutoCleanup
-import spock.lang.Ignore
-import spock.lang.Shared
 import spock.lang.Specification
-
-import java.util.logging.Logger
 
 /**
  * Created by pocockn on 16/06/16.
@@ -29,7 +21,7 @@ class HospitalServiceImplementationSpec extends Specification {
     @AutoCleanup
     ExecHarness execHarness = ExecHarness.harness()
 
-    HospitalServiceImplementation store = new HospitalServiceImplementation()
+    StorageServiceHospitalImplementation store = new StorageServiceHospitalImplementation()
 
     void "Should save and return a list of hospitals"() {
         given:

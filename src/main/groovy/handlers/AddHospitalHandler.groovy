@@ -4,7 +4,7 @@ import model.Hospital
 import ratpack.form.Form
 import ratpack.handling.Context
 import ratpack.handling.InjectionHandler
-import service.HospitalService
+import service.StorageService
 
 import static ratpack.handlebars.Template.handlebarsTemplate
 import static ratpack.jackson.Jackson.json
@@ -14,7 +14,7 @@ import static ratpack.jackson.Jackson.json
  */
 class AddHospitalHandler extends InjectionHandler {
 
-    void handle(Context ctx, HospitalService hospitalService) {
+    void handle(Context ctx, StorageService hospitalService) {
         ctx.byMethod { method ->
             method.post {
                 ctx.parse(Form).then { form ->

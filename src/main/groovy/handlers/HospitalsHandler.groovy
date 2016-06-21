@@ -1,18 +1,15 @@
 package handlers
 
-import model.Hospital
-import model.HospitalSummary
-import ratpack.exec.Promise
 import ratpack.handling.Context
 import ratpack.handling.Handler
-import service.HospitalService
+import service.StorageService
 
 /**
  * Created by pocockn on 10/06/16.
  */
 class HospitalsHandler implements Handler {
 
-    protected final HospitalService hospitalService
+    protected final StorageService hospitalService
 
 
     void handle(Context ctx) {

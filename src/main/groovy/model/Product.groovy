@@ -6,11 +6,11 @@ class Product {
 
     String id
     String name
-    Integer quantity
-    Integer price
+    Long quantity
+    BigDecimal price
 
-    Integer getPricePerUnit(quantity, price) {
-        price / quantity
+    BigDecimal getPricePerUnit() {
+        this.price / this.quantity
     }
 
 }

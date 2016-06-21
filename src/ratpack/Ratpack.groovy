@@ -6,8 +6,8 @@ import ratpack.handlebars.HandlebarsModule
 import ratpack.hikari.HikariModule
 import ratpack.service.Service
 import ratpack.service.StartEvent
-import service.HospitalService
-import service.HospitalServiceImplementation
+import service.StorageService
+import service.StorageServiceHospitalImplementation
 
 import java.util.logging.Logger
 
@@ -25,7 +25,7 @@ ratpack {
         module SqlModule
         module HikariModule
         module HikariConfigModule
-        bind HospitalService, HospitalServiceImplementation
+        bind StorageService, StorageServiceHospitalImplementation
         bindInstance new Service() {
             void onStart(StartEvent e) throws Exception {
                 Logger logger = Logger.getLogger("")
@@ -35,7 +35,7 @@ ratpack {
 
     }
 
-    handlers { HospitalService hospitalService ->
+    handlers { StorageService hospitalService ->
         get {
             hospitalService.fetchAll().then { hospitals ->
                 render handlebarsTemplate("hospitals.html", model: [created: hospitals])
