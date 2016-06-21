@@ -1,6 +1,6 @@
 {{> header }}
 <title>Hospital - {{model.singleHospital.name}}</title>
-<div id="page-wrapper">
+<div id="page-wrapper" class="page-hospital">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">{{model.singleHospital.name}}</h1>
@@ -32,7 +32,7 @@
                                     <td>{{address}}</td>
                                     <td>{{id}}</td>
                                     <td>
-                                        <form action="/delete/{{id}}" method="post">
+                                        <form action="/delete/{{id}}" class="deleteHospital" method="post">
                                             <input type="submit" name="delete" value="delete"/>
                                         </form>
                                     </td>
@@ -40,7 +40,21 @@
                             {{/each}}
                             </tbody>
                         </table>
-                        <input type="button" name="product" class="btn-default" value="Add Product"/>
+                        <form action="/api/addProduct" class=" addNewProduct" method="post">
+                            <fieldset class="form-group">
+                                <label for="title">Product Name</label>
+                                <input type="text" class="form-control" id="name" name="productName">
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <label for="title">Quantity</label>
+                                <input type="number" class="form-control" id="employees" name="quantity">
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <label for="title">Price</label>
+                                <input type="text" class="form-control" id="address" name="price">
+                            </fieldset>
+                            <input type="submit" name="add" value="add"/>
+                        </form>
                         <br/>
                         <a href="/">Back</a>
                     </div>

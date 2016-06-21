@@ -12,14 +12,17 @@ class HospitalPage extends Page {
     // location of the page
     static url = "/hospital"
     // at is used to assert driver is on the correct page, checks title to ensure this
-    static at = { $('body.page-hospital') }
+    static at = { $('.page-hospital') }
 
     static content = {
         hospitalName { $(".hospital-name").text() }
         hospitalEmployees { $(".hospital-employees").text() }
         hospitalAddress { $(".hospital-address").text() }
-        deleteHospitalForm { $("form") }
-        deleteButton { (deleteHospitalForm.submit()) }
+        deleteHospitalForm { $("form.deleteHospital") }
+        deleteButton { (deleteHospitalForm.delete()) }
+
+        addProductForm { $("form.addNewProduct") }
+        addProductButton { $(addProductForm.add()) }
     }
 
 }
