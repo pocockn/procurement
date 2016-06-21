@@ -13,7 +13,7 @@ import ratpack.exec.Promise
 /**
  * Created by pocockn on 09/06/16.
  */
-class HospitalServiceImplementation implements HospitalService {
+class StorageServiceImplementation implements StorageService<Hospital> {
 
     @Inject Sql sql
     @Inject ObjectMapper mapper
