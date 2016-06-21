@@ -132,5 +132,10 @@ clean.delete << file('src/ratpack/public/assets/')
 clean.delete << file('node_modules')
 clean.delete << file('bower_components')
 
+task stage {
+    dependsOn installDist
+}
+
+
 
 
